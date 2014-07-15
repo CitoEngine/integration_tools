@@ -17,11 +17,17 @@ This is a helper script to help integrate monitoring systems with CitoEngine.
 
 For more information, refer to http://citoengine.readthedocs.org/
 """
-import requests
 from datetime import datetime
-import simplejson
-from argparse import ArgumentParser
+import json
 from time import time
+import sys
+try:
+    import requests
+    from argparse import ArgumentParser
+except ImportError:
+    print "Dependencies not installed, please run: \n\n\t pip install requests argparse \n"
+    sys.exit(1)
+
 
 parser = ArgumentParser(description='Simple Event publisher for CitoEngine.',
         epilog='event_publisher.py -e 666 -H host.foo.com -m "Out of memory" --cito-server 1.1.1.1 --cito-port 9000')
@@ -49,7 +55,7 @@ else:
 
 url += '%s:%d/addevent' % (args.cito_server, args.cito_port)
 headers = ''
-response = requests.post(url, data=simplejson.dumps(json_data), headers=headers)
+response = requests.post(url, data=json.dumps(json_data), headers=headers)
 if response.text is None:
     print response
 else:
