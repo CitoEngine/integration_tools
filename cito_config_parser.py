@@ -91,7 +91,7 @@ class CitoConfigParser(object):
         with open(events_file) as csv_file:
             csvreader = csv.reader(csv_file)
             for row in csvreader:
-                self.events_def[row[5]] = row[0]
+                self.events_def[row[6]] = row[0]
 
     def print_service_deps(self):
         self.parse_config_file()
@@ -110,6 +110,7 @@ class CitoConfigParser(object):
                         self.output_writer('_CITOEVENTID\t\t\t\t%s' % self.events_def[svc])
                     except KeyError:
                         print "ERROR: Cannot find event_id for service:%s in %s" % (svc, events_file)
+                        print "Event defs \n\n%s" %  self.events_def
                         sys.exit(1)
                 else:
                     raise ValueError('Cannot generate config for %s config_type, yet.' % self.config_type)
