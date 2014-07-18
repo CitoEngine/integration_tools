@@ -109,7 +109,7 @@ class CitoConfigParser(object):
                     try:
                         self.output_writer('_CITOEVENTID\t\t\t\t%s' % self.events_def[svc])
                     except KeyError:
-                        print "ERROR: Cannot find event_id for service:%s in %s" % (self.events_def, self.events_file)
+                        print "ERROR: Cannot find event_id for service:%s in %s" % (svc, events_file)
                         sys.exit(1)
                 else:
                     raise ValueError('Cannot generate config for %s config_type, yet.' % self.config_type)
