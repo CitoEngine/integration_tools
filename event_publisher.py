@@ -28,6 +28,7 @@ except ImportError:
     print "Dependencies not installed, please run: \n\n\t pip install requests argparse \n"
     sys.exit(1)
 
+API_URI = 'api/v1/incidents/add/'
 
 parser = ArgumentParser(description='Simple Event publisher for CitoEngine.',
         epilog='event_publisher.py -e 666 -H host.foo.com -m "Out of memory" --cito-server 1.1.1.1 --cito-port 9000')
@@ -53,7 +54,7 @@ if args.use_ssl:
 else:
     url = 'http://'
 
-url += '%s:%d/addevent' % (args.cito_server, args.cito_port)
+url += '%s:%d/%s' % (args.cito_server, args.cito_port, API_URI)
 headers = ''
 response = requests.post(url, data=json.dumps(json_data), headers=headers)
 if response.text is None:
